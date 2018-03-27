@@ -29,15 +29,74 @@
         private void InitializeComponent()
         {
             this.blockPanel = new System.Windows.Forms.Panel();
-            
+            this.blockLabels = new System.Windows.Forms.Label[40];
             this.SuspendLayout();
             // 
             // blockPanel
             // 
             this.blockPanel.Location = new System.Drawing.Point(13, 13);
             this.blockPanel.Name = "blockPanel";
-            
+            this.blockPanel.Size = new System.Drawing.Size(350, 500);
             this.blockPanel.TabIndex = 0;
+
+            //Label creation
+
+            int blockNumber = 0;
+            int blockPositionX = 0;
+            int blocRow = 0;
+
+            foreach(System.Windows.Forms.Label block in blockLabels){
+
+                blockLabels[blockNumber] = new System.Windows.Forms.Label();
+                this.blockLabels[blockNumber].BackColor = System.Drawing.Color.Black;
+                this.blockLabels[blockNumber].Location = new System.Drawing.Point(60 * blockPositionX, 60 * blocRow);
+                this.blockLabels[blockNumber].Name = "blockLabel" + blockNumber.ToString();
+                this.blockLabels[blockNumber].Size = new System.Drawing.Size(50, 50);
+                this.blockLabels[blockNumber].TabIndex = blockNumber;
+                blockNumber++;
+                blockPositionX++;
+
+                if (blockNumber == 5){
+                    blocRow++;
+                    blockPositionX = 0;
+                }
+                if(blockNumber == 10)
+                {
+                    blocRow++;
+                    blockPositionX = 0;
+                } if(blockNumber == 15)
+                {
+                    blocRow++;
+                    blockPositionX = 0;
+                } if(blockNumber == 20)
+                {
+                    blocRow++;
+                    blockPositionX = 0;
+                } if(blockNumber == 25)
+                {
+                    blocRow++;
+                    blockPositionX = 0;
+                } if(blockNumber == 30)
+                {
+                    blocRow++;
+                    blockPositionX = 0;
+                } if(blockNumber == 35)
+                {
+                    blocRow++;
+                    blockPositionX = 0;
+                }if(blockNumber == 40)
+                {
+                    blocRow++;
+                    blockPositionX = 0;
+                }
+            }
+
+            blockNumber = 0;
+
+            foreach(System.Windows.Forms.Label block in blockLabels){
+                this.blockPanel.Controls.Add(this.blockLabels[blockNumber]);
+                blockNumber++;
+            }
             // 
             // Form1
             // 
@@ -56,7 +115,13 @@
 
         private System.Windows.Forms.Panel blockPanel;
 
-        private System.Windows.Forms.Label[] blocksLabels;
+        private System.Windows.Forms.Label[] blockLabels;
+
+        public System.Windows.Forms.Label[] BlockLabels
+        {
+            get { return blockLabels; }
+            set { blockLabels = value; }
+        }
     }
 }
 
