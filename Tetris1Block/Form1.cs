@@ -24,7 +24,7 @@ namespace Tetris1Block
             InitializeComponent();
 
             _timer = new Timer();
-            _timer.Interval = 400;
+            _timer.Interval = 100;
             _timer.Enabled = true;
             _timer.Tick += new System.EventHandler(TimerTickEvent);
 
@@ -49,6 +49,27 @@ namespace Tetris1Block
         public void TimerTickEvent(object sender, EventArgs e)
         {
             _tetrisPiecePostion += 5;
+
+            if(_tetrisPiecePostion < 35)
+            {
+                if(BlockLabels[_tetrisPiecePostion].BackColor == _blockEmptyColor[1])
+                {
+                    _tetrisPiecePostion = 2;
+                }
+            }
+
+            if(_tetrisPiecePostion == 2)
+            {
+                int amount = 0;
+                foreach(Label block in BlockLabels)
+                {
+                    if (block.BackColor == _blockEmptyColor[1])
+                    {
+                        _blocksFilled[amount] = true;
+                    }
+                    amount++;
+                }
+            }
 
             if (_tetrisPiecePostion > 40)
             {
@@ -101,6 +122,39 @@ namespace Tetris1Block
                         BlockLabels[amoutBlue].BackColor = _blockEmptyColor[1];
                     }
                     amoutBlue++;
+                }
+
+                if(_tetrisPiecePostion < 40)
+                {
+                    if(BlockLabels[_tetrisPiecePostion].BackColor == _blockEmptyColor[0])
+                    {
+                        blockLabels[_tetrisPiecePostion].BackColor = _blockEmptyColor[1];
+                        if(_tetrisPiecePostion > 5)
+                        {
+                            BlockLabels[_tetrisPiecePostion - 5].BackColor = _blockEmptyColor[0];
+                        }
+                    }
+                }
+            }
+
+            if(BlockLabels[2].BackColor == _blockEmptyColor[1] && BlockLabels[7].BackColor == _blockEmptyColor[1])
+            {
+                _timer.Stop();
+                DialogResult quitOrCountinue = MessageBox.Show("Restart ?", "U FAIL", MessageBoxButtons.YesNo);
+                
+                if(quitOrCountinue == DialogResult.Yes)
+                {
+                    foreach(Label block in BlockLabels)
+                    {
+                        block.BackColor = _blockEmptyColor[0];
+                    }
+                    _blocksFilled = new bool[40];
+                    _tetrisPiecePostion = -3;
+                    _timer.Start();
+                }
+                else
+                {
+                    Environment.Exit(0);
                 }
             }
         }
